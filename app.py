@@ -28,7 +28,7 @@ st.markdown("""
 
     html, body, [class*="css"], p, div, {
         font-family: 'DM Sans', sans-serif !important;
-        font-size: 18px !important;
+        font-size: 13px !important;
     }
 
     .stApp {
@@ -60,7 +60,7 @@ st.markdown("""
 
     .main-header {
         font-family: 'Syne', sans-serif !important;
-        font-size: 3rem !important;
+        font-size: 4.25rem !important;
         font-weight: 800 !important;
         background: linear-gradient(135deg, #FFFFFF 0%, #00A3E0 50%, #00E0A3 100%);
         -webkit-background-clip: text;
