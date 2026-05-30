@@ -444,6 +444,7 @@ if uploaded_files:
 else:
     col1, col2, col3 = st.columns(3)
     with col1:
+        grep - n "main-header" dashboard/app.py | head - 5
         st.markdown("""
         <div class="metric-card">
             <div class="metric-number">01</div>
