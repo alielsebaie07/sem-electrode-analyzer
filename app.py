@@ -283,8 +283,10 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     [data-testid="stToolbar"] {visibility: hidden;}
-    ._profileContainer_gzau3_53 {display: none !important;}
-    ._profilePreview_gzau3_63 {display: none !important;}
+    [data-testid="stBottom"] {display: none !important;}
+    [class*="_profileContainer"] {display: none !important;}
+    [class*="_crown"] {display: none !important;}
+    [class*="_embeddedSocialProof"] {display: none !important;}
 </style>
 """, unsafe_allow_html=True)
 
