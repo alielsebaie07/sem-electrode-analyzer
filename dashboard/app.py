@@ -62,7 +62,7 @@ st.markdown("""
     }
     .main-header {
         font-family: 'Syne', sans-serif !important;
-        font-size: 4.25rem !important;
+        font-size: 3.4rem !important;
         font-weight: 800 !important;
         background: linear-gradient(135deg, #FFFFFF 0%, #00A3E0 50%, #00E0A3 100%);
         -webkit-background-clip: text;
@@ -74,7 +74,7 @@ st.markdown("""
     }
 
     .sub-header {
-        font-size: 1.4rem !important;
+        font-size: 1.12rem !important;
         color: #8085A4;
         text-align: center;
         letter-spacing: 0.01em;
@@ -84,7 +84,7 @@ st.markdown("""
 
     .made-by {
         font-family: 'DM Mono', monospace !important;
-        font-size: 1.1rem !important;
+        font-size: 0.88rem !important;
         color: #8085A4;
         text-align: center;
         letter-spacing: 0.1em;
@@ -103,7 +103,7 @@ st.markdown("""
 
     .upload-title {
         font-family: 'Syne', sans-serif !important;
-        font-size: 1.6rem !important;
+        font-size: 1.28rem !important;
         font-weight: 700 !important;
         color: #FFFFFF !important;
         letter-spacing: 0.05em;
@@ -114,7 +114,7 @@ st.markdown("""
 
     .section-header {
         font-family: 'Syne', sans-serif !important;
-        font-size: 1.3rem !important;
+        font-size: 1.04rem !important;
         font-weight: 700 !important;
         color: #FFFFFF !important;
         letter-spacing: 0.05em;
@@ -134,13 +134,13 @@ st.markdown("""
     }
     .metric-number {
         font-family: 'DM Mono', monospace !important;
-        font-size: 3.5rem !important;
+        font-size: 2.8rem !important;
         font-weight: 500;
         color: #00A3E0;
         line-height: 1;
     }
     .metric-label {
-        font-size: 1.1rem !important;
+        font-size: 0.88rem !important;
         color: #5A6080;
         margin-top: 1rem;
         line-height: 1.5;
@@ -149,7 +149,7 @@ st.markdown("""
 
     .image-caption {
         font-family: 'DM Mono', monospace !important;
-        font-size: 1.1rem !important;
+        font-size: 0.88rem !important;
         color: #5A6080;
         text-align: center !important;
         margin-top: 1rem;
@@ -169,7 +169,7 @@ st.markdown("""
     }
     div[data-testid="stMetric"] label {
         font-family: 'DM Mono', monospace !important;
-        font-size: 1.4rem !important;
+        font-size: 1.12rem !important;
         text-transform: uppercase !important;
         letter-spacing: 0.1em !important;
         color: #5A6080 !important;
@@ -178,7 +178,7 @@ st.markdown("""
     }
     div[data-testid="stMetricValue"] {
         font-family: 'Syne', sans-serif !important;
-        font-size: 2.2rem !important;
+        font-size: 1.76rem !important;
         font-weight: 700 !important;
         color: #FFFFFF !important;
         text-align: center !important;
@@ -186,7 +186,7 @@ st.markdown("""
 
     .timer-text {
         font-family: 'DM Mono', monospace !important;
-        font-size: 0.9rem !important;
+        font-size: 0.72rem !important;
         color: #00A3E0;
         text-align: right;
         padding-top: 0.75rem;
@@ -208,13 +208,13 @@ st.markdown("""
     [data-testid="stSidebar"] label,
     [data-testid="stSidebar"] div,
     [data-testid="stSidebar"] li {
-        font-size: 20px !important;
+        font-size: 16px !important;
         color: #CCCCCC !important;
     }
 
     [data-testid="stSidebar"] h3 {
         font-family: 'Syne', sans-serif !important;
-        font-size: 1.6rem !important;
+        font-size: 1.28rem !important;
         font-weight: 700 !important;
         color: #FFFFFF !important;
         margin-bottom: 1rem !important;
@@ -227,7 +227,7 @@ st.markdown("""
     }
 
     [data-testid="stSlider"] label {
-        font-size: 20px !important;
+        font-size: 16px !important;
         color: #CCCCCC !important;
         margin-bottom: 0.5rem !important;
         display: block !important;
@@ -253,7 +253,7 @@ st.markdown("""
 
     .stSpinner > div {
         font-family: 'DM Mono', monospace !important;
-        font-size: 1rem !important;
+        font-size: 0.8rem !important;
         color: #5A6080 !important;
     }
 
@@ -270,13 +270,13 @@ st.markdown("""
     }
 
     [data-testid="stFileUploaderDropzone"] p {
-        font-size: 1.5rem !important;
+        font-size: 1.2rem !important;
         color: #8B8FA8 !important;
         text-align: center !important;
     }
 
     [data-testid="stFileUploaderDropzone"] button {
-        font-size: 1.3rem !important;
+        font-size: 1.04rem !important;
         padding: 0.6rem 2rem !important;
         margin-top: 0.75rem !important;
     }
