@@ -28,7 +28,7 @@ st.markdown("""
 
     html, body, [class*="css"], p, div, {
         font-family: 'DM Sans', sans-serif !important;
-        font-size: 18px !important;
+        font-size: 14px !important;
     }
 
     .stApp {
