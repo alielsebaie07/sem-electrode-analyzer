@@ -28,7 +28,7 @@ st.markdown("""
 
     html, body, [class*="css"], p, div, {
         font-family: 'DM Sans', sans-serif !important;
-        font-size: 13px !important;
+        font-size: 18px !important;
     }
 
     .stApp {
@@ -57,7 +57,9 @@ st.markdown("""
         position: relative;
         z-index: 1;
     }
-
+.main {
+        zoom: 0.75 !important;
+    }
     .main-header {
         font-family: 'Syne', sans-serif !important;
         font-size: 4.25rem !important;
