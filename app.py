@@ -397,7 +397,7 @@ if uploaded_files:
             st.markdown(
                 '<div class="image-caption">Shortest Li⁺ Path</div>', unsafe_allow_html=True)
 
-       m1, m2, m3 = st.columns(3)
+        m1, m2, m3 = st.columns(3)
         m1.metric("Porosity", f"{porosity}%")
         m2.metric("Tortuosity", tortuosity if tortuosity else "N/A")
         m3.metric("Spec", "✅ In Spec" if in_spec else "❌ Out of Spec")
