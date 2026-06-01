@@ -286,7 +286,6 @@ st.markdown("""
     [class^="_profileContainer"] {display: none !important;}
     [class^="_link_gzau3"] {display: none !important;}
     [class*="profileContainer"] {display: none !important;}
-    [class*="stBottom"] {display: none !important;}
 </style>
 """, unsafe_allow_html=True)
 
