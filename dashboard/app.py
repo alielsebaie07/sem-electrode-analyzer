@@ -399,59 +399,10 @@ if uploaded_files:
             st.image(path_image, use_container_width=True)
             st.markdown(
                 '<div class="image-caption">Shortest Li⁺ Path</div>', unsafe_allow_html=True)
-        st.markdown("<br>", unsafe_allow_html=True)
         m1, m2, m3 = st.columns(3)
         m1.metric("Porosity", f"{porosity}%")
         m2.metric("Tortuosity", tortuosity if tortuosity else "N/A")
         m3.metric("Spec", "✅ In Spec" if in_spec else "❌ Out of Spec")
-
-        # Porosity interpretation
-        if porosity < 20:
-            porosity_interp = "⚠️ Very low porosity — the electrode is over-densified, likely from aggressive calendering. Electrolyte cannot adequately penetrate the pore network, meaning interior particles are electrochemically inaccessible. Expect poor rate capability and capacity loss at high charge/discharge rates."
-            porosity_color = "#FF4B4B"
-        elif porosity < 25:
-            porosity_interp = "🔶 Low porosity — below the ideal range for NMC cathodes. Ion transport will be restricted, particularly at fast charge rates. May indicate over-calendering. Energy density will be high but fast-charge performance will suffer."
-            porosity_color = "#FFA500"
-        elif porosity <= 35:
-            porosity_interp = "✅ Optimal porosity — within the 25–35% target range for NMC cathodes. The pore network provides sufficient electrolyte access to active material particles while maintaining high volumetric energy density. Good balance of rate capability and capacity."
-            porosity_color = "#00E0A3"
-        elif porosity <= 45:
-            porosity_interp = "🔶 High porosity — above the ideal range. Energy density is reduced because pore space is displacing active material. The electrode may also be mechanically weak and prone to cracking during cycling. May indicate under-calendering."
-            porosity_color = "#FFA500"
-        else:
-            porosity_interp = "⚠️ Very high porosity — the electrode is severely under-densified. Significant energy density loss and potential structural integrity issues. Active material loading per unit volume is too low for practical cell performance."
-            porosity_color = "#FF4B4B"
-
-        # Tortuosity interpretation
-        if tortuosity is None:
-            tortuosity_interp = "⚠️ No connected pore path found from surface to current collector — the pore network is discontinuous. Interior active material is effectively isolated from the electrolyte. This electrode would show very poor electrochemical performance."
-            tortuosity_color = "#FF4B4B"
-        elif tortuosity < 1.2:
-            tortuosity_interp = "✅ Very low tortuosity — near-straight pore channels. Lithium-ion transport through the electrode is highly efficient with minimal path lengthening. Excellent fast-charge capability expected."
-            tortuosity_color = "#00E0A3"
-        elif tortuosity <= 2.0:
-            tortuosity_interp = "✅ Good tortuosity — within the typical range for well-made NMC electrodes. Lithium-ion diffusion is moderately efficient. Rate capability will be acceptable across standard charge/discharge conditions."
-            tortuosity_color = "#00E0A3"
-        elif tortuosity <= 3.0:
-            tortuosity_interp = "🔶 Elevated tortuosity — ion transport pathways are significantly winding. Effective lithium-ion diffusivity is reduced, meaning the electrode will underperform at fast charge rates. May indicate poor pore connectivity from over-calendering or non-uniform mixing."
-            tortuosity_color = "#FFA500"
-        else:
-            tortuosity_interp = "⚠️ Very high tortuosity — severely convoluted pore network. Lithium-ion transport is heavily restricted, leading to significant rate capability loss, increased internal resistance, and accelerated capacity fade. This electrode would not meet fast-charge specifications."
-            tortuosity_color = "#FF4B4B"
-
-        st.markdown(f"""
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.5rem 2rem; margin-top: 1rem;">
-            <div style="font-family: Syne, sans-serif; font-size: 1rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.05em; text-transform: uppercase; border-left: 4px solid #00A3E0; padding-left: 0.75rem; margin-bottom: 1.25rem;">Engineering Interpretation</div>
-            <div style="margin-bottom: 1rem;">
-                <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Porosity Assessment</span>
-                <p style="color: {porosity_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{porosity_interp}</p>
-            </div>
-            <div>
-                <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Tortuosity Assessment</span>
-                <p style="color: {tortuosity_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{tortuosity_interp}</p>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
 
         st.divider()
 
