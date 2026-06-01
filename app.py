@@ -1,17 +1,18 @@
-import streamlit as st
-import cv2
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib
-import time
-from src.preprocessing import preprocess
-from src.porosity import calculate_porosity
-from src.tortuosity import calculate_tortuosity, draw_path_on_image
 from src.cpk import calculate_cpk
+from src.tortuosity import calculate_tortuosity, draw_path_on_image
+from src.porosity import calculate_porosity
+from src.preprocessing import preprocess
+import time
+import matplotlib
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import cv2
+import streamlit as st
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 matplotlib.use('Agg')
 
@@ -283,10 +284,7 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     [data-testid="stToolbar"] {visibility: hidden;}
-    [class^="_profileContainer"] {display: none !important;}
-    [class^="_link_gzau3"] {display: none !important;}
-    [class*="profileContainer"] {display: none !important;}
-    [class*="stBottom"] {display: none !important;}
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -335,7 +333,8 @@ uploaded_files = st.file_uploader(
     "",
     accept_multiple_files=True,
     type=['png', 'jpg', 'tif'],
-    help="Upload grayscale SEM cross-section images"
+    help="Upload grayscale SEM cross-section images",
+    label_visibility="collapsed"
 )
 if uploaded_files:
     results = []
@@ -396,8 +395,6 @@ if uploaded_files:
             st.image(path_image, use_container_width=True)
             st.markdown(
                 '<div class="image-caption">Shortest Li⁺ Path</div>', unsafe_allow_html=True)
-
-        st.markdown("<br>", unsafe_allow_html=True)
         m1, m2, m3 = st.columns(3)
         m1.metric("Porosity", f"{porosity}%")
         m2.metric("Tortuosity", tortuosity if tortuosity else "N/A")
