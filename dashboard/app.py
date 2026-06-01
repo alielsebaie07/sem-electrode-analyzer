@@ -316,8 +316,7 @@ with st.sidebar:
         use_container_width=True
     )
     st.markdown("---")
-    target_porosity = st.slider(python3 - m streamlit run dashboard/app.py 2 > &1 | head - 30"Target Porosity (%)", 20, 45, 30)
-    tolerance = st.slider("Spec Tolerance (±%)", 1, 10, 5)
+    target_porosity = st.slider("Target Porosity (%)", 20, 45, 30)
     usl = target_porosity + tolerance
     lsl = target_porosity - tolerance
     st.markdown("---")
