@@ -280,12 +280,6 @@ st.markdown("""
     [data-testid="stFileUploader"] {
         margin-top: -2rem !important;
     }
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    [data-testid="stToolbar"] {visibility: hidden;}
-    [class^="_profileContainer"] {display: none !important;}
-    [class^="_link_gzau3"] {display: none !important;}
-    [class*="profileContainer"] {display: none !important;}
 </style>
 """, unsafe_allow_html=True)
 
