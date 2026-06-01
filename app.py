@@ -316,7 +316,7 @@ with st.sidebar:
         use_container_width=True
     )
     st.markdown("---")
-    target_porosity = st.slider("Target Porosity (%)", 20, 45, 30)
+    target_porosity = st.slider(python3 - m streamlit run dashboard/app.py 2 > &1 | head - 30"Target Porosity (%)", 20, 45, 30)
     tolerance = st.slider("Spec Tolerance (±%)", 1, 10, 5)
     usl = target_porosity + tolerance
     lsl = target_porosity - tolerance
@@ -336,10 +336,11 @@ with st.sidebar:
 st.markdown('<div class="upload-box"><div class="upload-title"> ⬇️ Upload Images ⬇️</div><div style="font-size:0.9rem; color:#5A6080; margin-bottom:0.75rem; font-family: DM Mono, monospace;">No images? Download a sample from the sidebar! </div>',
             unsafe_allow_html=True)
 uploaded_files = st.file_uploader(
-    "",
+    "Upload SEM Images",
     accept_multiple_files=True,
     type=['png', 'jpg', 'tif'],
-    help="Upload grayscale SEM cross-section images"
+    help="Upload grayscale SEM cross-section images",
+    label_visibility="collapsed"
 )
 if uploaded_files:
     results = []
