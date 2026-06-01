@@ -283,11 +283,6 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     [data-testid="stToolbar"] {visibility: hidden;}
-    [data-testid="stSidebarNav"] {display: block !important;}
-    section[data-testid="stSidebar"] {
-        min-width: 250px !important;
-        width: 250px !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
