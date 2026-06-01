@@ -317,6 +317,7 @@ with st.sidebar:
     )
     st.markdown("---")
     target_porosity = st.slider("Target Porosity (%)", 20, 45, 30)
+    tolerance = st.slider("Spec Tolerance (±%)", 1, 10, 5)
     usl = target_porosity + tolerance
     lsl = target_porosity - tolerance
     st.markdown("---")
