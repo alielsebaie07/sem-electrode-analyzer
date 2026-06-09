@@ -16,6 +16,42 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 matplotlib.use('Agg')
 
 
+def get_interpretation(porosity, tortuosity):
+    if porosity < 20:
+        p_text = "Very low porosity — the electrode is over-densified from aggressive calendering. Electrolyte cannot penetrate the pore network, meaning interior particles are electrochemically inaccessible. Expect poor rate capability and capacity loss at high C-rates."
+        p_color = "#FF4B4B"
+    elif porosity < 25:
+        p_text = "Low porosity — below the ideal range for NMC cathodes. Ion transport will be restricted at fast charge rates. May indicate over-calendering. Energy density will be high but fast-charge performance will suffer."
+        p_color = "#FFA500"
+    elif porosity <= 35:
+        p_text = "Optimal porosity — within the 25–35% target range for NMC cathodes. Good balance of electrolyte access, energy density, and rate capability."
+        p_color = "#00E0A3"
+    elif porosity <= 45:
+        p_text = "High porosity — above the ideal range. Energy density is reduced because pore space is displacing active material. May indicate under-calendering."
+        p_color = "#FFA500"
+    else:
+        p_text = "Very high porosity — severely under-densified. Significant energy density loss and potential structural integrity issues."
+        p_color = "#FF4B4B"
+
+    if tortuosity is None:
+        t_text = "No connected pore path found — the pore network is discontinuous. Interior active material is isolated from the electrolyte. This electrode would show very poor electrochemical performance."
+        t_color = "#FF4B4B"
+    elif tortuosity < 1.2:
+        t_text = "Very low tortuosity — near-straight pore channels. Lithium-ion transport is highly efficient. Excellent fast-charge capability expected."
+        t_color = "#00E0A3"
+    elif tortuosity <= 2.0:
+        t_text = "Good tortuosity — within the typical range for well-made NMC electrodes. Rate capability will be acceptable across standard charge conditions."
+        t_color = "#00E0A3"
+    elif tortuosity <= 3.0:
+        t_text = "Elevated tortuosity — ion transport pathways are significantly winding. Effective lithium-ion diffusivity is reduced, leading to underperformance at fast charge rates."
+        t_color = "#FFA500"
+    else:
+        t_text = "Very high tortuosity — severely convoluted pore network. Lithium-ion transport is heavily restricted, leading to significant rate capability loss and accelerated capacity fade."
+        t_color = "#FF4B4B"
+
+    return p_text, p_color, t_text, t_color
+
+
 st.set_page_config(
     page_title="SEM Electrode Analyzer",
     page_icon="🔬",
@@ -395,6 +431,22 @@ if uploaded_files:
         m1.metric("Porosity", f"{porosity}%")
         m2.metric("Tortuosity", tortuosity if tortuosity else "N/A")
         m3.metric("Spec", "✅ In Spec" if in_spec else "❌ Out of Spec")
+
+        p_text, p_color, t_text, t_color = get_interpretation(
+            porosity, tortuosity)
+        st.markdown(f"""
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.5rem 2rem; margin-top: 1rem;">
+            <div style="font-family: Syne, sans-serif; font-size: 1rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.05em; text-transform: uppercase; border-left: 4px solid #00A3E0; padding-left: 0.75rem; margin-bottom: 1.25rem;">Engineering Interpretation</div>
+            <div style="margin-bottom: 1rem;">
+                <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Porosity Assessment</span>
+                <p style="color: {p_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{p_text}</p>
+            </div>
+            <div>
+                <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Tortuosity Assessment</span>
+                <p style="color: {t_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{t_text}</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
         st.divider()
 
