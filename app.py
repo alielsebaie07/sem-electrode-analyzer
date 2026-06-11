@@ -16,7 +16,19 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 matplotlib.use('Agg')
 
 
+D0 = 2.6e-10  # bulk Li+ diffusivity in LiPF6 EC/DMC electrolyte (m²/s)
+
+
 def get_interpretation(porosity, tortuosity):
+    # Calculate effective diffusivity
+    if tortuosity and tortuosity > 0:
+        porosity_fraction = porosity / 100
+        d_eff = (porosity_fraction * D0) / tortuosity
+        d_eff_ratio = porosity_fraction / tortuosity
+    else:
+        d_eff = None
+        d_eff_ratio = None
+
     if porosity < 20:
         p_text = "Very low porosity — the electrode is over-densified from aggressive calendering. Electrolyte cannot penetrate the pore network, meaning interior particles are electrochemically inaccessible. Expect poor rate capability and capacity loss at high C-rates."
         p_color = "#FF4B4B"
@@ -49,7 +61,21 @@ def get_interpretation(porosity, tortuosity):
         t_text = "Very high tortuosity — severely convoluted pore network. Lithium-ion transport is heavily restricted, leading to significant rate capability loss and accelerated capacity fade."
         t_color = "#FF4B4B"
 
-    return p_text, p_color, t_text, t_color
+    # Effective diffusivity assessment
+    if d_eff_ratio is None:
+        d_text = "Cannot calculate — tortuosity unavailable."
+        d_color = "#5A6080"
+    elif d_eff_ratio >= 0.20:
+        d_text = f"High effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f}) — excellent lithium-ion transport. This electrode is well-suited for fast charging."
+        d_color = "#00E0A3"
+    elif d_eff_ratio >= 0.10:
+        d_text = f"Moderate effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f}) — acceptable transport for standard charge rates but may limit performance at high C-rates."
+        d_color = "#FFA500"
+    else:
+        d_text = f"Low effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f}) — severely restricted lithium-ion transport. This electrode will underperform at fast charge rates."
+        d_color = "#FF4B4B"
+
+    return p_text, p_color, t_text, t_color, d_eff, d_eff_ratio, d_text, d_color
 
 
 st.set_page_config(
@@ -432,7 +458,7 @@ if uploaded_files:
         m2.metric("Tortuosity", tortuosity if tortuosity else "N/A")
         m3.metric("Spec", "✅ In Spec" if in_spec else "❌ Out of Spec")
 
-        p_text, p_color, t_text, t_color = get_interpretation(
+        p_text, p_color, t_text, t_color, d_eff, d_eff_ratio, d_text, d_color = get_interpretation(
             porosity, tortuosity)
         st.markdown(f"""
         <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.5rem 2rem; margin-top: 1rem;">
@@ -441,9 +467,13 @@ if uploaded_files:
                 <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Porosity Assessment</span>
                 <p style="color: {p_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{p_text}</p>
             </div>
-            <div>
+            <div style="margin-bottom: 1rem;">
                 <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Tortuosity Assessment</span>
                 <p style="color: {t_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{t_text}</p>
+            </div>
+            <div>
+                <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Effective Li⁺ Diffusivity</span>
+                <p style="color: {d_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{d_text}</p>
             </div>
         </div>
         """, unsafe_allow_html=True)
