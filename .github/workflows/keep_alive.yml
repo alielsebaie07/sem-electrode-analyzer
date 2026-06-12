@@ -2,11 +2,13 @@ name: Keep Alive
 
 on:
   schedule:
-    - cron: '*/25 * * * *'
+    - cron: '0 */8 * * *'
 
 jobs:
-  ping:
+  wake:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit App
-        run: curl -s https://sem-cathode-analyzer.streamlit.app/ > /dev/null
+      - name: Wake Streamlit App
+        run: |
+          curl -L --max-time 60 -A "Mozilla/5.0" https://sem-cathode-analyzer.streamlit.app/
+          echo "App pinged successfully"
