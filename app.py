@@ -30,52 +30,65 @@ def get_interpretation(porosity, tortuosity):
         d_eff_ratio = None
 
     if porosity < 20:
-        p_text = "Very low porosity — the electrode is over-densified from aggressive calendering. Electrolyte cannot penetrate the pore network, meaning interior particles are electrochemically inaccessible. Expect poor rate capability and capacity loss at high C-rates."
+        p_verdict = "Very low porosity"
+        p_rest = " — the electrode is over-densified from aggressive calendering. Electrolyte cannot penetrate the pore network, meaning interior particles are electrochemically inaccessible. Expect poor rate capability and capacity loss at high C-rates."
         p_color = "#FF4B4B"
     elif porosity < 25:
-        p_text = "Low porosity — below the ideal range for NMC cathodes. Ion transport will be restricted at fast charge rates. May indicate over-calendering. Energy density will be high but fast-charge performance will suffer."
+        p_verdict = "Low porosity"
+        p_rest = " — below the ideal range for NMC cathodes. Ion transport will be restricted at fast charge rates. May indicate over-calendering. Energy density will be high but fast-charge performance will suffer."
         p_color = "#FFA500"
     elif porosity <= 35:
-        p_text = "Optimal porosity — within the 25–35% target range for cathodes. Good balance of electrolyte access, energy density, and rate capability."
-        p_color = "#FFFFFF"
+        p_verdict = "Optimal porosity"
+        p_rest = " — within the 25–35% target range for NMC cathodes. Good balance of electrolyte access, energy density, and rate capability."
+        p_color = "#00E0A3"
     elif porosity <= 45:
-        p_text = "High porosity — above the ideal range. Energy density is reduced because pore space is displacing active material. May indicate under-calendering."
+        p_verdict = "High porosity"
+        p_rest = " — above the ideal range. Energy density is reduced because pore space is displacing active material. May indicate under-calendering."
         p_color = "#FFA500"
     else:
-        p_text = "Very high porosity — severely under-densified. Significant energy density loss and potential structural integrity issues."
+        p_verdict = "Very high porosity"
+        p_rest = " — severely under-densified. Significant energy density loss and potential structural integrity issues."
         p_color = "#FF4B4B"
 
     if tortuosity is None:
-        t_text = "No connected pore path found — the pore network is discontinuous. Interior active material is isolated from the electrolyte. This electrode would show very poor electrochemical performance."
+        t_verdict = "No connected pore path found"
+        t_rest = " — the pore network is discontinuous. Interior active material is isolated from the electrolyte. This electrode would show very poor electrochemical performance."
         t_color = "#FF4B4B"
     elif tortuosity < 1.2:
-        t_text = "Very low tortuosity — near-straight pore channels. Lithium-ion transport is highly efficient. Excellent fast-charge capability expected."
-        t_color = "#FFFFFF"
+        t_verdict = "Very low tortuosity"
+        t_rest = " — near-straight pore channels. Lithium-ion transport is highly efficient. Excellent fast-charge capability expected."
+        t_color = "#00E0A3"
     elif tortuosity <= 2.0:
-        t_text = "Good tortuosity — within the typical range for well-made NMC electrodes. Rate capability will be acceptable across standard charge conditions."
-        t_color = "#FFFFFF"
+        t_verdict = "Good tortuosity"
+        t_rest = " — within the typical range for well-made NMC electrodes. Rate capability will be acceptable across standard charge conditions."
+        t_color = "#00E0A3"
     elif tortuosity <= 3.0:
-        t_text = "Elevated tortuosity — ion transport pathways are significantly winding. Effective lithium-ion diffusivity is reduced, leading to underperformance at fast charge rates."
+        t_verdict = "Elevated tortuosity"
+        t_rest = " — ion transport pathways are significantly winding. Effective lithium-ion diffusivity is reduced, leading to underperformance at fast charge rates."
         t_color = "#FFA500"
     else:
-        t_text = "Very high tortuosity — severely convoluted pore network. Lithium-ion transport is heavily restricted, leading to significant rate capability loss and accelerated capacity fade."
+        t_verdict = "Very high tortuosity"
+        t_rest = " — severely convoluted pore network. Lithium-ion transport is heavily restricted, leading to significant rate capability loss and accelerated capacity fade."
         t_color = "#FF4B4B"
 
-    # Effective diffusivity assessment
     if d_eff_ratio is None:
-        d_text = "Cannot calculate — tortuosity unavailable."
+        d_verdict = "Cannot calculate"
+        d_rest = " — tortuosity unavailable."
         d_color = "#5A6080"
     elif d_eff_ratio >= 0.20:
-        d_text = f"High effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f}) — excellent lithium-ion transport. This electrode is well-suited for fast charging."
+        d_verdict = f"High effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f})"
+        d_rest = " — excellent lithium-ion transport. This electrode is well-suited for fast charging."
         d_color = "#00E0A3"
     elif d_eff_ratio >= 0.10:
-        d_text = f"Moderate effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f}) — acceptable transport for standard charge rates but may limit performance at high C-rates."
+        d_verdict = f"Moderate effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f})"
+        d_rest = " — acceptable transport for standard charge rates but may limit performance at high C-rates."
         d_color = "#FFA500"
     else:
-        d_text = f"Low effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f}) — severely restricted lithium-ion transport. This electrode will underperform at fast charge rates."
+        d_verdict = f"Low effective diffusivity (D_eff = {d_eff:.2e} m²/s, D_eff/D₀ = {d_eff_ratio:.2f})"
+        d_rest = " — severely restricted lithium-ion transport. This electrode will underperform at fast charge rates."
         d_color = "#FF4B4B"
 
-    return p_text, p_color, t_text, t_color, d_eff, d_eff_ratio, d_text, d_color
+    return p_verdict, p_rest, p_color, t_verdict, t_rest, t_color, d_eff, d_eff_ratio, d_verdict, d_rest, d_color
 
 
 st.set_page_config(
@@ -458,22 +471,22 @@ if uploaded_files:
         m2.metric("Tortuosity", tortuosity if tortuosity else "N/A")
         m3.metric("Spec", "✅ In Spec" if in_spec else "❌ Out of Spec")
 
-        p_text, p_color, t_text, t_color, d_eff, d_eff_ratio, d_text, d_color = get_interpretation(
+        p_verdict, p_rest, p_color, t_verdict, t_rest, t_color, d_eff, d_eff_ratio, d_verdict, d_rest, d_color = get_interpretation(
             porosity, tortuosity)
         st.markdown(f"""
         <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 1.5rem 2rem; margin-top: 1rem;">
             <div style="font-family: Syne, sans-serif; font-size: 1rem; font-weight: 700; color: #FFFFFF; letter-spacing: 0.05em; text-transform: uppercase; border-left: 4px solid #00A3E0; padding-left: 0.75rem; margin-bottom: 1.25rem;">Engineering Interpretation</div>
             <div style="margin-bottom: 1rem;">
                 <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Porosity Assessment</span>
-                <p style="color: {p_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{p_text}</p>
+                <p style="margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;"><span style="color: {p_color}; font-weight: 600;">{p_verdict}</span><span style="color: #CCCCCC;">{p_rest}</span></p>
             </div>
             <div style="margin-bottom: 1rem;">
                 <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Tortuosity Assessment</span>
-                <p style="color: {t_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{t_text}</p>
+                <p style="margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;"><span style="color: {t_color}; font-weight: 600;">{t_verdict}</span><span style="color: #CCCCCC;">{t_rest}</span></p>
             </div>
             <div>
                 <span style="font-family: DM Mono, monospace; font-size: 0.75rem; color: #5A6080; text-transform: uppercase; letter-spacing: 0.08em;">Effective Li⁺ Diffusivity</span>
-                <p style="color: {d_color}; margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;">{d_text}</p>
+                <p style="margin-top: 0.4rem; font-size: 0.9rem; line-height: 1.6;"><span style="color: {d_color}; font-weight: 600;">{d_verdict}</span><span style="color: #CCCCCC;">{d_rest}</span></p>
             </div>
         </div>
         """, unsafe_allow_html=True)
