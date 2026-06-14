@@ -59,10 +59,10 @@ def draw_path_on_image(binary_image, path_coords):
         return rgb_image
 
     for r, c in path_coords:
-        for dr in range(-1, 2):
-            for dc in range(-1, 2):
-                nr, nc = r + dr, c + dc
-                if 0 <= nr < rows and 0 <= nc < cols:
-                    rgb_image[nr, nc] = [0, 255, 255]
+        rgb_image[r, c] = [0, 255, 255]
+        for dc in [-1, 1]:
+            nc = c + dc
+            if 0 <= nc < cols:
+                rgb_image[r, nc] = [0, 255, 255]
 
     return rgb_image
