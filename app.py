@@ -36,8 +36,8 @@ def get_interpretation(porosity, tortuosity):
         p_text = "Low porosity — below the ideal range for NMC cathodes. Ion transport will be restricted at fast charge rates. May indicate over-calendering. Energy density will be high but fast-charge performance will suffer."
         p_color = "#FFA500"
     elif porosity <= 35:
-        p_text = "Optimal porosity — within the 25–35% target range for NMC cathodes. Good balance of electrolyte access, energy density, and rate capability."
-        p_color = "#00E0A3"
+        p_text = "Optimal porosity — within the 25–35% target range for cathodes. Good balance of electrolyte access, energy density, and rate capability."
+        p_color = "#FFFFFF"
     elif porosity <= 45:
         p_text = "High porosity — above the ideal range. Energy density is reduced because pore space is displacing active material. May indicate under-calendering."
         p_color = "#FFA500"
@@ -50,10 +50,10 @@ def get_interpretation(porosity, tortuosity):
         t_color = "#FF4B4B"
     elif tortuosity < 1.2:
         t_text = "Very low tortuosity — near-straight pore channels. Lithium-ion transport is highly efficient. Excellent fast-charge capability expected."
-        t_color = "#00E0A3"
+        t_color = "#FFFFFF"
     elif tortuosity <= 2.0:
         t_text = "Good tortuosity — within the typical range for well-made NMC electrodes. Rate capability will be acceptable across standard charge conditions."
-        t_color = "#00E0A3"
+        t_color = "#FFFFFF"
     elif tortuosity <= 3.0:
         t_text = "Elevated tortuosity — ion transport pathways are significantly winding. Effective lithium-ion diffusivity is reduced, leading to underperformance at fast charge rates."
         t_color = "#FFA500"
