@@ -60,6 +60,11 @@ def draw_path_on_image(binary_image, path_coords):
 
     # Draw path in bright cyan
     for r, c in path_coords:
-        rgb_image[r, c] = [255, 50, 50]
+        # Draw cyan path with thickness by coloring neighboring pixels too
+        for dr in range(-1, 2):
+            for dc in range(-1, 2):
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < rows and 0 <= nc < cols:
+                    rgb_image[nr, nc] = [0, 255, 255]
 
     return rgb_image
