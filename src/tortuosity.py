@@ -52,15 +52,13 @@ def calculate_tortuosity(binary_image):
 
 
 def draw_path_on_image(binary_image, path_coords):
-    # Convert binary grayscale to RGB so we can draw a colored path
+    rows, cols = binary_image.shape
     rgb_image = np.stack([binary_image] * 3, axis=-1)
 
     if path_coords is None:
         return rgb_image
 
-    # Draw path in bright cyan
     for r, c in path_coords:
-        # Draw cyan path with thickness by coloring neighboring pixels too
         for dr in range(-1, 2):
             for dc in range(-1, 2):
                 nr, nc = r + dr, c + dc
