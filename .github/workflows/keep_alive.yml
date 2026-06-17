@@ -8,14 +8,19 @@ jobs:
   wake:
     runs-on: ubuntu-latest
     steps:
-      - name: Wake Streamlit App
-        run: |
-          curl -L \
-            --max-time 60 \
-            --retry 3 \
-            -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" \
-            -H "Accept-Language: en-US,en;q=0.5" \
-            -H "Connection: keep-alive" \
-            -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
-            https://sem-cathode-analyzer.streamlit.app/ || true
-          echo "Ping complete"
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@latest
+
+      - name: Install dependencies
+        run: pip install selenium
+
+      - name: Run keep alive script
+        run: python keep_alive.py
