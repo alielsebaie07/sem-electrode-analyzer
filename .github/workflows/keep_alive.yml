@@ -3,7 +3,7 @@ name: Keep Alive
 on:
   schedule:
     - cron: '0 */4 * * *'
-
+  workflow_dispatch:
 jobs:
   wake:
     runs-on: ubuntu-latest
